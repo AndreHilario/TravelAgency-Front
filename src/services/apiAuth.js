@@ -15,9 +15,16 @@ function getFlights(name) {
 }
 
 function getHotels(name) {
+
     const response = axios.get(`${port}/hosting/city/${name}`);
     return response;
 }
 
-const apiAuth = { getCities, getFlights, getHotels };
+function getFlightById(id) {
+
+    const response = axios.get(`${port}/flights/${id}`);
+    return response;
+}
+
+const apiAuth = { getCities, getFlights, getHotels, getFlightById };
 export default apiAuth;
