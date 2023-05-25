@@ -28,6 +28,16 @@ const GlobalStyle = createGlobalStyle`
     :disabled {
         background-color: lightblue;
     }
+    h2 {
+        font-size: 40px;
+        font-style: oblique;
+        margin-top: 40px;
+        margin-left: 40px;
+    }
+    span {
+        color: blueviolet;
+        font-weight: bold;
+    }
 `
 
 export default GlobalStyle;

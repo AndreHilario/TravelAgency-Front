@@ -6,17 +6,29 @@ import styled from "styled-components";
 export default function MenuFlightsPage() {
 
     const [flightsCity, setFlightsCity] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const { selectedCity } = useContext(CityContext);
 
     useEffect(() => {
 
-        apiAuth
-            .getFlights(selectedCity)
-            .then(res => setFlightsCity(res.data))
-            .catch(err => alert(err.response.data))
+        if (selectedCity) {
+            apiAuth
+                .getFlights(selectedCity)
+                .then(res => {
+                    setFlightsCity(res.data);
+                    setLoading(false); // Define o estado de loading como false quando a chamada é concluída com sucesso
+                })
+                .catch(err => {
+                    setLoading(false); // Define o estado de loading como false em caso de erro
+                    alert(err.response.data);
+                });
+        }
+    }, [selectedCity]);
 
-    }, [selectedCity, flightsCity]);
+    if (loading) {
+        return <Loading></Loading>; // Exibe indicador de carregamento enquanto os voos estão sendo carregados
+    }
 
     return (
         <MenuFlightsPageContainer>
@@ -35,23 +47,14 @@ export default function MenuFlightsPage() {
                 )}
             </FlightContent>
         </MenuFlightsPageContainer>
-    )
+    );
 }
+
 
 const MenuFlightsPageContainer = styled.main`
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    h2 {
-        font-size: 40px;
-        font-style: oblique;
-        margin-top: 40px;
-        margin-left: 40px;
-    }
-    span {
-        color: blueviolet;
-        font-weight: bold;
-    }
 `;
 const FlightContent = styled.div`
     display: flex;
@@ -71,4 +74,14 @@ const RowImg = styled.div`
         width: 370px;
         height: auto;
     }
+`;
+
+const Loading = styled.div` 
+    width: 50px;
+    height: 50px;
+    border: 10px solid #eee;
+    border-bottom-color: rebeccapurple;
+    border-radius: 50%;
+    animation: rotate 1.5s linear infinite;
+    margin-top: 2rem;
 `;
