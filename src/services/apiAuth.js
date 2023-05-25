@@ -8,5 +8,11 @@ function getCities() {
     return response;
 }
 
-const apiAuth = { getCities };
+function getFlights(name) {
+
+    const response = axios.get(`${port}/flights/city/${name}`);
+    return response;
+}
+
+const apiAuth = { getCities, getFlights };
 export default apiAuth;

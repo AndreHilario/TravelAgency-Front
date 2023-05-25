@@ -1,11 +1,16 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react";
 import apiAuth from "../../services/apiAuth";
 import styled from "styled-components";
+import { CityContext } from "../../contexts/CityContext";
+import { useNavigate } from "react-router-dom";
 
 export default function MenuHomePage() {
 
     const [cities, setCities] = useState([]);
     const [isOpen, setIsOpen] = useState(false);
+
+    const { selectCity } = useContext(CityContext);
+    const navigate = useNavigate();
 
     useEffect(() => {
 
@@ -14,6 +19,14 @@ export default function MenuHomePage() {
             .then(res => setCities(res.data))
             .catch(err => alert(err.response.data))
     }, []);
+
+    function choosenCity(name) {
+
+        selectCity(name);
+        if(window.confirm(`Quer seguir e ver as opções para a cidade ${name} ?`)) {
+            navigate("/options");
+        }
+    }
 
     function toggleDropdown() {
 
@@ -27,7 +40,12 @@ export default function MenuHomePage() {
                 <DropdownContent isOpen={isOpen}>
 
                     {cities.map((row) =>
-                        <DropdownItem key={row.id} href="#">{row.name}</DropdownItem>
+                        <DropdownItem
+                            key={row.id}
+                            onClick={() => choosenCity(row.name)}
+                        >
+                            {row.name}
+                        </DropdownItem>
                     )}
 
                 </DropdownContent>
@@ -65,7 +83,7 @@ const DropdownContent = styled.div`
     z-index: 1;
 `;
 
-const DropdownItem = styled.a`
+const DropdownItem = styled.option`
   display: block;
   color: black;
   padding: 8px 16px;

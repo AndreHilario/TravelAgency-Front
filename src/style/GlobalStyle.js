@@ -9,13 +9,13 @@ const GlobalStyle = createGlobalStyle`
     button {
         width: 182px;
         height: 60px;
-        background-color: #5D9040;
+        background-color: #0FFFEF;
         border: 1px solid #5D9040;
         border-radius: 12px;
         font-weight: 700;
-        font-size: 14px;
+        font-size: 19px;
         line-height: 18px;
-        color: #FFFFFF;
+        color: #000000;
         cursor: pointer;
     }
     a {
