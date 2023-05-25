@@ -4,7 +4,6 @@ const GlobalStyle = createGlobalStyle`
     * {
         font-family: 'Lexend Deca';
         font-style: normal;
-        background-color: #fff;
     }
     button {
         width: 182px;
@@ -35,7 +34,7 @@ const GlobalStyle = createGlobalStyle`
         margin-left: 40px;
     }
     span {
-        color: blueviolet;
+        color: #000080;
         font-weight: bold;
     }
 `

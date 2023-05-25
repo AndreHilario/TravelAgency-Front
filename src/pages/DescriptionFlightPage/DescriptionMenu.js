@@ -34,7 +34,7 @@ export default function DescriptionMenu() {
 
   return (
     <DescriptionMenuContainer>
-      <h2>Passagem para <span>{selectedCity}</span></h2>
+      <h2>Passagem de número {flightDetails.number} para <span>{selectedCity}</span></h2>
       <DescriptionContent>
         <ItemContainer>
           <Item>
@@ -75,7 +75,7 @@ const DescriptionMenuContainer = styled.main`
 const DescriptionContent = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 40px;
+  margin-top: 70px;
   font-size: 25px;
 `;
 

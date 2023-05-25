@@ -16,4 +16,8 @@ export default function FlightsPage() {
 const FlightsPageContainer = styled.div`
     display: flex;
     flex-direction: column;
+    min-height: 100vh; 
+    background-image: url("https://img.freepik.com/vetores-gratis/plano-de-fundo-de-viagens-de-design_23-2149193475.jpg");
+    background-size: cover;
+    background-position: center;
 `;
