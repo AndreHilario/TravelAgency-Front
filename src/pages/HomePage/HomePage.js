@@ -19,4 +19,5 @@ const HomePageContainer = styled.div`
     background-image: url("https://www.melhoresdestinos.com.br/wp-content/uploads/2019/02/passagens-aereas-maldivas-capa2019-04.jpg");
     background-size: cover;
     background-position: center;
+    padding: 20px;
 `;

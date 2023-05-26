@@ -90,8 +90,8 @@ const DropdownContent = styled.div`
       display: ${(props) => (props.isOpen ? 'block' : 'none')};
       justify-content: center;
       position: absolute;
-      top: 170px;
-      left: 505px;
+      top: 190px;
+      left: 498px;
       width: 800px;
       box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
       border: 2px solid #446275;

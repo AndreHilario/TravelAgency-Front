@@ -48,6 +48,7 @@ const HeaderContainer = styled.header`
   justify-content: space-between;
   align-items: center;
   background-color: #0000cd;
+  border-radius: 12px;
   height: 80px;
   width: 100%;
   font-size: 44px;

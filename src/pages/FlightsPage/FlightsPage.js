@@ -23,4 +23,5 @@ const FlightsPageContainer = styled.div`
     background-image: url("https://img.freepik.com/vetores-gratis/plano-de-fundo-de-viagens-de-design_23-2149193475.jpg");
     background-size: cover;
     background-position: center;
+    padding: 20px;
 `;
