@@ -14,5 +14,6 @@ export default function DescriptionFlightPage() {
 }
 
 const DescriptionFlightPageContainer = styled.div`
-
+    background-color: aquamarine;
+    height: 100vh;
 `;

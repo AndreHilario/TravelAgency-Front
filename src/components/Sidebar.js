@@ -1,40 +1,43 @@
-import { useState } from "react";
 import styled from "styled-components";
+import { useContext } from "react";
+import { FilterContext } from "../contexts/FilterContext";
 
-export default function Sidebar() {
-    const [minPrice, setMinPrice] = useState(0);
-    const [maxPrice, setMaxPrice] = useState(3.14);
+export default function Sidebar({ setFilterApplied, showSidebar, setShowSidebar }) {
 
-    const handleMinPriceChange = (event) => {
-        setMinPrice(parseFloat(event.target.value));
-    };
 
-    const handleMaxPriceChange = (event) => {
-        setMaxPrice(parseFloat(event.target.value));
-    };
+  const { minPrice, maxPrice, handleMinPriceChange, handleMaxPriceChange } = useContext(FilterContext);
 
-    return (
-        <SidebarContainer>
-            <FilterSection>
-                <h3>Filtrar por Preço</h3>
-                <span>Preço mínimo: {minPrice}</span>
-                <input type="range" min="0" max="5000" step="0.01" value={minPrice} onChange={handleMinPriceChange} />
-                <span>Preço máximo: {maxPrice}</span>
-                <input type="range" min="100" max="7000" step="0.01" value={maxPrice} onChange={handleMaxPriceChange} />
-            </FilterSection>
-        </SidebarContainer>
-    );
+  const handleFilter = () => {
+    setShowSidebar(!showSidebar);
+    setFilterApplied(true);
+
+  }
+
+  return (
+    <SidebarContainer>
+      <FilterSection>
+        <h3>Filtre por Preço</h3>
+        <span>Preço mínimo: {minPrice}</span>
+        <input type="range" min="0" max="5000" step="0.01" value={minPrice} onChange={handleMinPriceChange} />
+        <span>Preço máximo: {maxPrice}</span>
+        <input type="range" min="100" max="7000" step="0.01" value={maxPrice} onChange={handleMaxPriceChange} />
+      </FilterSection>
+      <FilterButton>
+        <button onClick={handleFilter}>Filtrar</button>
+      </FilterButton>
+    </SidebarContainer>
+  );
 }
 
 const SidebarContainer = styled.div`
-  width: 400px;
+  width: 500px;
   height: 100%;
   background-color: #fff;
   position: absolute;
   top: 80px;
   left: 0px;
   z-index: 2;
-  transition: left 0.3s ease-in-out;
+  transition: left 0.5s ease-in-out;
 
   /* Adicione estilos adicionais à sua sidebar, se necessário */
 `;
@@ -48,21 +51,6 @@ const FilterSection = styled.div`
     color: #000;
   }
   input[type="range"] {
-    width: 100%;
-    height: 8px;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    background-color: #ddd;
-    border-radius: 4px;
-    outline: none;
-  }
-
-  input[type="range"]::-webkit-slider-thumb {
-    appearance: none;
-    width: 16px;
-    height: 16px;
-    background-color: #0000cd;
-    border-radius: 50%;
     cursor: pointer;
   }
   span {
@@ -70,3 +58,8 @@ const FilterSection = styled.div`
   }
 `;
 
+const FilterButton = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+`;

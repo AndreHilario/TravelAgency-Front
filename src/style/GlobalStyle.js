@@ -8,14 +8,19 @@ const GlobalStyle = createGlobalStyle`
     button {
         width: 182px;
         height: 60px;
-        background-color: #0FFFEF;
-        border: 1px solid #5D9040;
-        border-radius: 12px;
+        background-color: #00BFFF;
+        border: 1px solid #fff;
+        border-radius: 120px;
         font-weight: 700;
-        font-size: 19px;
+        font-size: 25px;
         line-height: 18px;
         color: #000000;
         cursor: pointer;
+    }
+    button:hover {
+        width: 185px;
+        height: 63px;
+        background-color: aquamarine;
     }
     a {
         font-weight: 400;

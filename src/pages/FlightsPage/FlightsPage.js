@@ -1,14 +1,17 @@
 import styled from "styled-components"
 import MenuFlightsPage from "./MenuFlightsPage";
 import Header from "../../components/Header";
+import { useState } from "react";
 
 export default function FlightsPage() {
+
+    const [filterApplied, setFilterApplied] = useState(false);
 
     return (
 
         <FlightsPageContainer>
-            <Header />
-            <MenuFlightsPage />
+            <Header setFilterApplied={setFilterApplied} filterApplied={filterApplied} />
+            <MenuFlightsPage filterApplied={filterApplied} />
         </FlightsPageContainer>
     )
 }

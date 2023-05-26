@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import apiAuth from "../../services/apiAuth";
 import { CityContext } from "../../contexts/CityContext";
 import styled from "styled-components";
+import Barcode from "react-barcode";
+import QRCode from "react-qr-code";
 
 export default function DescriptionMenu() {
   const [flightDetails, setFlightDetails] = useState({});
@@ -61,9 +63,17 @@ export default function DescriptionMenu() {
             <ItemLabel>Valor da passagem:</ItemLabel>
             <ItemValue>R$ {flightDetails.price}</ItemValue>
           </Item>
+          <BarAndQRcodeContainer>
+            {flightDetails.number && (
+              <>
+                <Barcode value={flightDetails.number.toString()} />
+                <QRCode value={flightDetails.number.toString()} size={120} />
+              </>
+            )}
+          </BarAndQRcodeContainer>
         </ItemContainer>
       </DescriptionContent>
-    </DescriptionMenuContainer>
+    </DescriptionMenuContainer >
   );
 }
 
@@ -106,5 +116,11 @@ const Loading = styled.div`
   border-radius: 50%;
   animation: rotate 1.5s linear infinite;
   margin-top: 2rem;
+`;
+
+const BarAndQRcodeContainer = styled.div`
+  display: flex;
+  gap: 75px;
+  margin-top: 70px;
 `;
 

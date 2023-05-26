@@ -4,7 +4,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import Sidebar from "./Sidebar";
 
-export default function Header() {
+export default function Header({ setFilterApplied }) {
     const [showSidebar, setShowSidebar] = useState(false);
 
     const location = useLocation();
@@ -26,7 +26,7 @@ export default function Header() {
             )}
             {showBackArrow && (
                 <>
-                    {showSidebar && <Sidebar />}
+                    {showSidebar && <Sidebar setFilterApplied={setFilterApplied} setShowSidebar={setShowSidebar} showSidebar={showSidebar} />}
                     <IconContainer>
                         <FaPlane onClick={handleSidebar} />
                     </IconContainer>
@@ -67,6 +67,7 @@ const IconContainer = styled.div`
   align-items: center;
   margin: 0px 10px;
   position: relative;
+  cursor: pointer;
 `;
 
 const BackLink = styled(Link)`
@@ -76,6 +77,5 @@ const BackLink = styled(Link)`
   color: white;
   text-decoration: none;
   font-size: 45px;
-  cursor: pointer;
 `;
 
