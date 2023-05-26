@@ -34,7 +34,7 @@ export default function DescriptionMenu() {
 
   return (
     <DescriptionMenuContainer>
-      <h2>Passagem de número {flightDetails.number} para <span>{selectedCity}</span></h2>
+      <h2>Passagem de número {flightDetails.number} para <span>{flightDetails.destination}</span></h2>
       <DescriptionContent>
         <ItemContainer>
           <Item>
