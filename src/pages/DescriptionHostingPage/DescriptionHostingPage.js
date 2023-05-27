@@ -14,9 +14,6 @@ export default function DescriptionHostingPage() {
 }
 
 const DescriptionHostingPageContainer = styled.div`
-    background-color: lightgray;
-    height: 100vh;
     padding: 20px;
-    background-color: #fff;
-    height: 100vh;
+    min-height: 100vh;
 `;

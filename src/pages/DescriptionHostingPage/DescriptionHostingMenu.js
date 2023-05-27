@@ -2,7 +2,10 @@ import { useContext, useEffect, useState } from "react";
 import apiAuth from "../../services/apiAuth";
 import { useParams } from "react-router-dom";
 import { CityContext } from "../../contexts/CityContext";
-import styled from "styled-components";
+import {
+    CarouselContainer, NameContainer, Carousel, Slide,
+    Image, Button, DetailsContainer, DetailsTitle, Item, Loading, AmenitiesContainer, AmenitieItem, AmenitiesTitle
+} from "./styledHostingMenu";
 
 export default function DescriptionHostingMenu() {
 
@@ -53,6 +56,27 @@ export default function DescriptionHostingMenu() {
         return () => clearInterval(checkInterval);
     }, [hotelDetails.hotel_images]);
 
+    useEffect(() => {
+        // Define a imagem do slide atual como plano de fundo da página
+        if (hotelDetails.hotel_images && hotelDetails.hotel_images[currentIndex]) {
+            const currentImage = hotelDetails.hotel_images[currentIndex];
+            document.body.style.backgroundImage = `url(${currentImage})`;
+            document.body.style.backgroundSize = "cover";
+            document.body.style.backgroundPosition = "center";
+            document.body.style.backgroundRepeat = "no-repeat";
+            document.body.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+        }
+
+        // Limpa a imagem de fundo quando o componente é desmontado
+        return () => {
+            document.body.style.backgroundImage = "";
+            document.body.style.backgroundSize = "";
+            document.body.style.backgroundPosition = "";
+            document.body.style.backgroundRepeat = "";
+            document.body.style.backgroundColor = "";
+        };
+    }, [currentIndex, hotelDetails.hotel_images]);
+
 
     const goToPreviousSlide = () => {
         setCurrentIndex((prevIndex) => (prevIndex === 0 ? hotelDetails.hotel_images.length - 1 : prevIndex - 1));
@@ -66,7 +90,7 @@ export default function DescriptionHostingMenu() {
     if (loading && !id) {
         return <Loading></Loading>;
     }
-    console.log(hotelDetails.hotel_images[3])
+
     return (
         <>
             <CarouselContainer>
@@ -102,7 +126,7 @@ export default function DescriptionHostingMenu() {
                 {hotelDetails.amenities_hotel && hotelDetails.amenities_hotel.length > 0 ? (
                     hotelDetails.amenities_hotel.map((item, index) => (
                         <AmenitieItem key={index}>
-                            {index + 1} - {item}
+                            {item}
                         </AmenitieItem>
                     ))
                 ) : (
@@ -111,115 +135,7 @@ export default function DescriptionHostingMenu() {
                 )}
             </AmenitiesContainer>
         </>
-
     );
 };
 
-const CarouselContainer = styled.div`
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-`;
 
-const NameContainer = styled.header`
-    display: flex;
-    justify-content: center;
-    font-size: 40px;
-    margin-top: 20px;
-    color: #00008b;
-`;
-
-const Carousel = styled.div`
-    display: flex;
-    transition: transform 0.3s ease;
-    margin-top: 10px;
-`;
-
-const Slide = styled.div`
-    display: flex;
-    justify-content: center;
-    margin-top: 50px;
-    flex: 0 0 100%;
-    display: ${({ isActive }) => (isActive ? 'flex' : 'none')};
-    transition: opacity 0.3s ease;
-`;
-
-const Image = styled.img`
-    width: 500px;
-    height: 320px;
-    border-radius: 500px;
-`;
-
-const Button = styled.button`
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    padding: 8px 16px;
-    background-color: #f2f2f2;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    
-    &:first-of-type {
-        left: 16px;
-    }
-    
-    &:last-of-type {
-        right: 16px;
-    }
-`;
-
-const Loading = styled.div`
-    width: 50px;
-    height: 50px;
-    border: 10px solid #eee;
-    border-bottom-color: rebeccapurple;
-    border-radius: 50%;
-    animation: rotate 1.5s linear infinite;
-    margin-top: 2rem;
-`;
-
-const DetailsContainer = styled.ul`
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    position: absolute;
-    left: 10%;
-    bottom: 30%;
-    border: 3px dashed #00558a;
-    padding: 20px;
-`;
-
-const Item = styled.li`
-    font-size: 25px;
-`;
-
-const AmenitiesContainer = styled.ul`
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    position: absolute;
-    left: 70%;
-    bottom: 13%;
-    border: 3px dashed #00558a;
-    padding: 20px;
-`;
-
-const AmenitieItem = styled.li`
-    font-size: 25px;
-`;
-
-const DetailsTitle = styled.h2`
-    font-size: 30px;
-    text-align: center;
-    border-bottom: 2px dashed #00558a;
-    margin-bottom: 10px;
-`;
-
-const AmenitiesTitle = styled.h2`
-    font-size: 30px;
-    text-align: center;
-    border-bottom: 2px dashed #00558a;
-    margin-bottom: 10px;
-`;
