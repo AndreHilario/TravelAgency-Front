@@ -32,5 +32,11 @@ function filterFlightsByPrice(city, minPrice, maxPrice) {
     return response;
 }
 
-const apiAuth = { getCities, getFlights, getHotels, getFlightById, filterFlightsByPrice };
+function getHotelById(id) {
+
+    const response = axios.get(`${port}/hosting/${id}`);
+    return response;
+}
+
+const apiAuth = { getCities, getFlights, getHotels, getFlightById, filterFlightsByPrice, getHotelById };
 export default apiAuth;

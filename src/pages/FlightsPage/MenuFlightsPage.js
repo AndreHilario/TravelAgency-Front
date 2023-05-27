@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { FilterContext } from "../../contexts/FilterContext";
 
 export default function MenuFlightsPage({ filterApplied }) {
+    
     const [flightsCity, setFlightsCity] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);

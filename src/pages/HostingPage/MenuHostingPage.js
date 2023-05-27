@@ -2,11 +2,14 @@ import { useContext, useEffect, useState } from "react";
 import apiAuth from "../../services/apiAuth";
 import { CityContext } from "../../contexts/CityContext";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 export default function MenuHostingPage() {
 
     const [hotels, setHotels] = useState([]);
     const [loading, setLoading] = useState(true);
+
+    const navigate = useNavigate();
 
     const { selectedCity } = useContext(CityContext);
 
@@ -25,6 +28,8 @@ export default function MenuHostingPage() {
         }
     }, [selectedCity]);
 
+    const handleDetails = (id) => navigate(`/hosting/${id}`);
+
     if (loading) {
         return (
             <LoadingContainer>
@@ -40,7 +45,7 @@ export default function MenuHostingPage() {
             )}
             <HotelContent>
                 {hotels.map((row) =>
-                    <RowHotels key={row.id}>
+                    <RowHotels key={row.id} onClick={() => handleDetails(row.id)}>
                         <RowHotelImg
                             src={row.hotel_images[0]} alt="Hotel" >
                         </RowHotelImg>

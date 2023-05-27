@@ -7,6 +7,7 @@ import OptionsPage from "./pages/OptionsPage/OptionsPage";
 import HostingPage from "./pages/HostingPage/HostingPage";
 import DescriptionFlightPage from "./pages/DescriptionFlightPage/DescriptionFlightPage";
 import { FilterProvider } from "./contexts/FilterContext";
+import DescriptionHostingPage from "./pages/DescriptionHostingPage/DescriptionHostingPage";
 
 export default function App() {
 
@@ -21,7 +22,7 @@ export default function App() {
                             <Route path="/flights" element={<FlightsPage />} />
                             <Route path="/flights/:id" element={<DescriptionFlightPage />} />
                             <Route path="/hosting" element={<HostingPage />} />
-
+                            <Route path="/hosting/:id" element={<DescriptionHostingPage />} />
                         </Routes>
                     </FilterProvider>
                 </CityProvider>
