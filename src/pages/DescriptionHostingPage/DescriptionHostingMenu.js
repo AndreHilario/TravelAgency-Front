@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import apiAuth from "../../services/apiAuth";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { CityContext } from "../../contexts/CityContext";
 import {
-    CarouselContainer, NameContainer, Carousel, Slide,
+    CarouselContainer, NameContainer, Carousel, Slide, CenteredButtonContainer,
     Image, Button, DetailsContainer, DetailsTitle, Item, Loading, AmenitiesContainer, AmenitieItem, AmenitiesTitle
 } from "./styledHostingMenu";
 
@@ -17,6 +17,8 @@ export default function DescriptionHostingMenu() {
     const { id } = useParams();
 
     const { selectedCity } = useContext(CityContext);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (selectedCity && id) {
@@ -77,7 +79,25 @@ export default function DescriptionHostingMenu() {
         };
     }, [currentIndex, hotelDetails.hotel_images]);
 
+    const reserve = () => {
 
+        const data = {
+            hotel_name: hotelDetails.hotel_name,
+            daily_price: hotelDetails.daily_price,
+            description: hotelDetails.description,
+            located_city: hotelDetails.located_city,
+            hotel_images: hotelDetails.hotel_images,
+            amenities_hotel: hotelDetails.amenities_hotel
+        }
+
+        apiAuth
+            .salveHotel(data)
+            .then(() => {
+                alert("Hotel reservado com sucesso");
+                navigate("/options");
+            })
+            .catch((err) => alert(err.message))
+    }
     const goToPreviousSlide = () => {
         setCurrentIndex((prevIndex) => (prevIndex === 0 ? hotelDetails.hotel_images.length - 1 : prevIndex - 1));
     };
@@ -121,6 +141,9 @@ export default function DescriptionHostingMenu() {
                 <Item>Diária: <span>R$ {hotelDetails.daily_price}</span></Item>
                 <Item>Descrição: <span>{hotelDetails.description}</span></Item>
             </DetailsContainer>
+            <CenteredButtonContainer>
+                <button onClick={reserve}>Reservar hotel</button>
+            </CenteredButtonContainer>
             <AmenitiesContainer>
                 <AmenitiesTitle>Comodidades do Hotel</AmenitiesTitle>
                 {hotelDetails.amenities_hotel && hotelDetails.amenities_hotel.length > 0 ? (

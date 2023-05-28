@@ -123,3 +123,10 @@ export const AmenitiesTitle = styled.h2`
     margin-right: 40px;
     margin-top: 1px;
 `;
+
+export const CenteredButtonContainer = styled.div `
+
+    position: absolute;
+    left: 45%;
+    margin-top: 320px;
+`;

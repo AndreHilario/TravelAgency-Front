@@ -44,5 +44,17 @@ function filterHotelsByPrice(city, minPrice, maxPrice) {
     return response;
 }
 
-const apiAuth = { getCities, getFlights, getHotels, getFlightById, filterFlightsByPrice, getHotelById, filterHotelsByPrice };
+function salveFlight(data) {
+
+    const result = axios.post(`${port}/flights`, data);
+    return result;
+}
+
+function salveHotel(data) {
+
+    const result = axios.post(`${port}/hosting`, data);
+    return result;
+}
+
+const apiAuth = { getCities, getFlights, getHotels, getFlightById, filterFlightsByPrice, getHotelById, filterHotelsByPrice, salveFlight, salveHotel };
 export default apiAuth;

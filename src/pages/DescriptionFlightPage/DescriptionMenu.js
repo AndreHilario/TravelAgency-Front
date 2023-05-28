@@ -1,6 +1,6 @@
 import React from "react";
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import apiAuth from "../../services/apiAuth";
 import { CityContext } from "../../contexts/CityContext";
 import styled from "styled-components";
@@ -8,12 +8,15 @@ import Barcode from "react-barcode";
 import QRCode from "react-qr-code";
 
 export default function DescriptionMenu() {
+
   const [flightDetails, setFlightDetails] = useState({});
   const [loading, setLoading] = useState(true);
 
   const { id } = useParams();
 
   const { selectedCity } = useContext(CityContext);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (selectedCity && id) {
@@ -29,6 +32,30 @@ export default function DescriptionMenu() {
         });
     }
   }, [selectedCity, id]);
+
+  const reserve = () => {
+
+    const data = {
+      number: flightDetails.number+1,
+      flight_date: flightDetails.flight_date,
+      flight_time: flightDetails.flight_time,
+      departure_city: flightDetails.departure_city,
+      destination: flightDetails.destination,
+      airline_name: flightDetails.airline_name,
+      departure_time: flightDetails.departure_city,
+      arrival_time: flightDetails.arrival_time,
+      price: flightDetails.price,
+      flight_id: id
+    }
+
+    apiAuth
+      .salveFlight(data)
+      .then(() => {
+        alert("Passagem salva com sucesso");
+        navigate("/options");
+      })
+      .catch((err) => alert("Passagem já reservada"))
+  }
 
   if (loading && !id) {
     return <Loading></Loading>;
@@ -73,6 +100,9 @@ export default function DescriptionMenu() {
           </BarAndQRcodeContainer>
         </ItemContainer>
       </DescriptionContent>
+      <ButtonContainer>
+        <button onClick={reserve}>Reservar passagem</button>
+      </ButtonContainer>
     </DescriptionMenuContainer >
   );
 }
@@ -122,5 +152,11 @@ const BarAndQRcodeContainer = styled.div`
   display: flex;
   gap: 75px;
   margin-top: 70px;
+`;
+
+const ButtonContainer = styled.div`
+  position: absolute;
+  left: 45%;
+  bottom: 10%;
 `;
 
