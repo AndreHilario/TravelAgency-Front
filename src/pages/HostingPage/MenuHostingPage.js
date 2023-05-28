@@ -3,30 +3,58 @@ import apiAuth from "../../services/apiAuth";
 import { CityContext } from "../../contexts/CityContext";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { FilterContext } from "../../contexts/FilterContext";
 
-export default function MenuHostingPage() {
+export default function MenuHostingPage({ hotelFilter }) {
 
     const [hotels, setHotels] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     const navigate = useNavigate();
 
     const { selectedCity } = useContext(CityContext);
+    const { minPrice, maxPrice } = useContext(FilterContext);
 
     useEffect(() => {
-        if (selectedCity) {
+        if (selectedCity && !hotelFilter) {
+            setLoading(true);
+            setError(null);
+
             apiAuth
                 .getHotels(selectedCity)
-                .then(res => {
+                .then((res) => {
                     setHotels(res.data);
-                    setLoading(false);
                 })
-                .catch(err => {
+                .catch((err) => {
+                    setError("Ocorreu um erro ao carregar os hotéis. Por favor, tente novamente mais tarde.");
+                })
+                .finally(() => {
                     setLoading(false);
-                    alert(err.response.data);
                 });
+        } else if (hotelFilter) {
+            if (minPrice > maxPrice) {
+                setError("O preço mínimo deve ser menor que o preço máximo");
+                setHotels([]);
+                setLoading(false);
+            } else {
+                setLoading(true);
+                setError(null);
+
+                apiAuth
+                    .filterHotelsByPrice(selectedCity, minPrice, maxPrice)
+                    .then((res) => {
+                        setHotels(res.data);
+                    })
+                    .catch((err) => {
+                        setError("Ocorreu um erro ao filtrar os voos. Por favor, tente novamente mais tarde.");
+                    })
+                    .finally(() => {
+                        setLoading(false);
+                    });
+            }
         }
-    }, [selectedCity]);
+    }, [selectedCity, hotelFilter, minPrice, maxPrice]);
 
     const handleDetails = (id) => navigate(`/hosting/${id}`);
 
@@ -40,6 +68,9 @@ export default function MenuHostingPage() {
 
     return (
         <MenuHostingPageContainer>
+
+            {error && <div>{error}</div>}
+
             {hotels.length > 0 && (
                 <h2>Hospedagens disponíveis em: <span>{hotels[0].located_city}</span></h2>
             )}

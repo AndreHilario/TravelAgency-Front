@@ -10,7 +10,7 @@ export default function FlightsPage() {
     return (
 
         <FlightsPageContainer>
-            <Header setFilterApplied={setFilterApplied} filterApplied={filterApplied} />
+            <Header setFilterApplied={setFilterApplied} />
             <MenuFlightsPage filterApplied={filterApplied} />
         </FlightsPageContainer>
     )

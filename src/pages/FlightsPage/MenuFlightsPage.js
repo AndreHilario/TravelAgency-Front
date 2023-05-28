@@ -10,6 +10,7 @@ export default function MenuFlightsPage({ filterApplied }) {
     const [flightsCity, setFlightsCity] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    
     const { selectedCity } = useContext(CityContext);
     const { minPrice, maxPrice } = useContext(FilterContext);
     const navigate = useNavigate();
@@ -26,6 +27,7 @@ export default function MenuFlightsPage({ filterApplied }) {
                 })
                 .catch((err) => {
                     setError("Ocorreu um erro ao carregar os voos. Por favor, tente novamente mais tarde.");
+                    alert(err.message)
                 })
                 .finally(() => {
                     setLoading(false);
@@ -46,6 +48,7 @@ export default function MenuFlightsPage({ filterApplied }) {
                     })
                     .catch((err) => {
                         setError("Ocorreu um erro ao filtrar os voos. Por favor, tente novamente mais tarde.");
+                        alert(err.message)
                     })
                     .finally(() => {
                         setLoading(false);

@@ -1,15 +1,25 @@
 import styled from "styled-components";
 import { useContext } from "react";
 import { FilterContext } from "../contexts/FilterContext";
+import { useLocation } from "react-router-dom";
 
-export default function Sidebar({ setFilterApplied, showSidebar, setShowSidebar }) {
+export default function Sidebar({ setFilterApplied, setHotelFilter, showSidebar, setShowSidebar }) {
 
 
   const { minPrice, maxPrice, handleMinPriceChange, handleMaxPriceChange } = useContext(FilterContext);
 
+  const location = useLocation();
+
   const handleFilter = () => {
     setShowSidebar(!showSidebar);
-    setFilterApplied(true);
+    if (location.pathname === "/flights") {
+      setFilterApplied(true);
+    }
+
+    if (location.pathname === "/hosting") {
+      setHotelFilter(true);
+    }
+
 
   }
 

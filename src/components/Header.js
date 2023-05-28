@@ -4,7 +4,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import Sidebar from "./Sidebar";
 
-export default function Header({ setFilterApplied }) {
+export default function Header({ setFilterApplied, setHotelFilter }) {
     const [showSidebar, setShowSidebar] = useState(false);
 
     const location = useLocation();
@@ -26,7 +26,7 @@ export default function Header({ setFilterApplied }) {
             )}
             {showBackArrow && (
                 <>
-                    {showSidebar && <Sidebar setFilterApplied={setFilterApplied} setShowSidebar={setShowSidebar} showSidebar={showSidebar} />}
+                    {showSidebar && <Sidebar setFilterApplied={setFilterApplied} setShowSidebar={setShowSidebar} showSidebar={showSidebar} setHotelFilter={setHotelFilter} />}
                     <IconContainer>
                         <FaPlane onClick={handleSidebar} />
                     </IconContainer>

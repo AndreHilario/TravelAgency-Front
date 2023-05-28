@@ -1,14 +1,17 @@
 import styled from "styled-components"
 import MenuHostingPage from "./MenuHostingPage";
 import Header from "../../components/Header";
+import { useState } from "react";
 
 export default function HostingPage() {
+
+    const [hotelFilter, setHotelFilter] = useState(false)
 
     return (
 
         <HostingPageContainer>
-            <Header />
-            <MenuHostingPage />
+            <Header setHotelFilter={setHotelFilter} />
+            <MenuHostingPage hotelFilter={hotelFilter} />
         </HostingPageContainer>
     )
 }
