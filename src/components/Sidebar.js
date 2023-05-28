@@ -38,8 +38,6 @@ const SidebarContainer = styled.div`
   left: 0px;
   z-index: 2;
   transition: left 0.5s ease-in-out;
-
-  /* Adicione estilos adicionais à sua sidebar, se necessário */
 `;
 
 const FilterSection = styled.div`

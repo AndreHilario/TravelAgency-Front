@@ -9,7 +9,7 @@ export const CarouselContainer = styled.div`
 export const NameContainer = styled.header`
     display: flex;
     justify-content: center;
-    font-size: 40px;
+    font-size: 50px;
     margin-top: 20px;
     color: #00008b;
 `;
@@ -21,7 +21,6 @@ export const Carousel = styled.div`
 `;
 
 export const Slide = styled.div`
-    display: flex;
     justify-content: center;
     margin-top: 50px;
     flex: 0 0 100%;
@@ -75,6 +74,11 @@ export const DetailsContainer = styled.ul`
     border: 3px solid #00558a;
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.7);
+    transition: box-shadow 0.3s ease;
+    
+    &:hover {
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 1);
+    }
 `;
 
 export const Item = styled.li`
@@ -91,6 +95,11 @@ export const AmenitiesContainer = styled.ul`
     border: 3px solid #00558a;
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.7);
+    transition: box-shadow 0.3s ease;
+    
+    &:hover {
+        box-shadow: 0px 8px 16px rgba(0, 0, 0, 1);
+    }
 `;
 
 export const AmenitieItem = styled.li`
@@ -102,6 +111,8 @@ export const DetailsTitle = styled.h2`
     text-align: center;
     border-bottom: 2px dashed #00558a;
     margin-bottom: 10px;
+    margin-right: 40px;
+    margin-top: 1px;
 `;
 
 export const AmenitiesTitle = styled.h2`
@@ -109,4 +120,6 @@ export const AmenitiesTitle = styled.h2`
     text-align: center;
     border-bottom: 2px dashed #00558a;
     margin-bottom: 10px;
+    margin-right: 40px;
+    margin-top: 1px;
 `;

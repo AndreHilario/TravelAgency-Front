@@ -9,14 +9,16 @@ export default function OptionsPage() {
             <OptionsContent>
                 <OptionsTitle>Escolha uma opção:</OptionsTitle>
                 <OptionsDescription>Veja as opções disponíveis de passagens e hospedagens para sua viagem.</OptionsDescription>
-                <BackgroundImageLink to="/flights">
-                    <BackgroundImage src={"https://www.drmarcelobdalio.com.br/imagens/para-sua-saude/trombose-viagem-aviao.jpg"} alt="Background Flights" />
-                    <OptionButtonText>Passagens</OptionButtonText>
-                </BackgroundImageLink>
-                <BackgroundImageLink to="/hosting">
-                    <BackgroundImage src={"https://cdn2.revistahoteis.com.br/wp-content/uploads/2021/12/Hotel.jpg"} alt="Background Hosting" />
-                    <OptionButtonText>Hospedagens</OptionButtonText>
-                </BackgroundImageLink>
+                <BackgroundImageContainer>
+                    <BackgroundImageLink to="/flights">
+                        <BackgroundImage src={"https://www.drmarcelobdalio.com.br/imagens/para-sua-saude/trombose-viagem-aviao.jpg"} alt="Background Flights" />
+                        <OptionButtonText>Passagens</OptionButtonText>
+                    </BackgroundImageLink>
+                    <BackgroundImageLink to="/hosting">
+                        <BackgroundImage src={"https://cdn2.revistahoteis.com.br/wp-content/uploads/2021/12/Hotel.jpg"} alt="Background Hosting" />
+                        <OptionButtonText>Hospedagens</OptionButtonText>
+                    </BackgroundImageLink>
+                </BackgroundImageContainer>
             </OptionsContent>
         </OptionsPageContainer>
     );
@@ -79,11 +81,17 @@ const OptionButtonText = styled.span`
     font-size: 30px;
     text-align: center;
     font-weight: bold;
-    color: white;
+    color: aqua;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translateX(-50%);
     padding: 10px 20px;
     border-radius: 8px;
+`;
+
+const BackgroundImageContainer = styled.div`
+    display: flex;
+    gap: 40px;
+    margin-top: 100px;
 `;
