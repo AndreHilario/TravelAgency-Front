@@ -69,8 +69,8 @@ export const DetailsContainer = styled.ul`
     flex-direction: column;
     gap: 30px;
     position: absolute;
-    left: 10%;
-    bottom: 20%;
+    left: 7%;
+    bottom: 17%;
     border: 3px solid #00558a;
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.7);

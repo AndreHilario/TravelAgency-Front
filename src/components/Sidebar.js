@@ -11,12 +11,13 @@ export default function Sidebar({ setFilterApplied, setHotelFilter, showSidebar,
   const location = useLocation();
 
   const handleFilter = () => {
-    setShowSidebar(!showSidebar);
     if (location.pathname === "/flights") {
+      setShowSidebar(!showSidebar);
       setFilterApplied(true);
     }
 
     if (location.pathname === "/hosting") {
+      setShowSidebar(!showSidebar);
       setHotelFilter(true);
     }
 
@@ -30,7 +31,7 @@ export default function Sidebar({ setFilterApplied, setHotelFilter, showSidebar,
         <span>Preço mínimo: {minPrice}</span>
         <input type="range" min="0" max="5000" step="0.01" value={minPrice} onChange={handleMinPriceChange} />
         <span>Preço máximo: {maxPrice}</span>
-        <input type="range" min="100" max="7000" step="0.01" value={maxPrice} onChange={handleMaxPriceChange} />
+        <input type="range" min="100" max="25000" step="0.01" value={maxPrice} onChange={handleMaxPriceChange} />
       </FilterSection>
       <FilterButton>
         <button onClick={handleFilter}>Filtrar</button>

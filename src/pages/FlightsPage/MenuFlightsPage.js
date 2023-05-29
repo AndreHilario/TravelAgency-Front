@@ -6,54 +6,39 @@ import { useNavigate } from "react-router-dom";
 import { FilterContext } from "../../contexts/FilterContext";
 
 export default function MenuFlightsPage({ filterApplied }) {
-    
     const [flightsCity, setFlightsCity] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    
+
     const { selectedCity } = useContext(CityContext);
     const { minPrice, maxPrice } = useContext(FilterContext);
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (selectedCity && !filterApplied) {
-            setLoading(true);
-            setError(null);
+        let request;
+        setLoading(true);
+        setError(null);
 
-            apiAuth
-                .getFlights(selectedCity)
+        if (selectedCity && !filterApplied) {
+            request = apiAuth.getFlights(selectedCity);
+        } else if (filterApplied && minPrice <= maxPrice) {
+            request = apiAuth.filterFlightsByPrice(selectedCity, minPrice, maxPrice);
+        }
+
+        if (request) {
+            request
                 .then((res) => {
                     setFlightsCity(res.data);
                 })
                 .catch((err) => {
-                    setError("Ocorreu um erro ao carregar os voos. Por favor, tente novamente mais tarde.");
-                    alert(err.message)
+                    setError("Ocorreu um erro ao carregar/filtrar os voos. Por favor, recarregue a página.");
+                    console.log(err.response);
                 })
                 .finally(() => {
                     setLoading(false);
                 });
-        } else if (filterApplied) {
-            if (minPrice > maxPrice) {
-                setError("O preço mínimo deve ser menor que o preço máximo");
-                setFlightsCity([]); // Limpa os voos filtrados
-                setLoading(false);
-            } else {
-                setLoading(true);
-                setError(null);
-
-                apiAuth
-                    .filterFlightsByPrice(selectedCity, minPrice, maxPrice)
-                    .then((res) => {
-                        setFlightsCity(res.data);
-                    })
-                    .catch((err) => {
-                        setError("Ocorreu um erro ao filtrar os voos. Por favor, tente novamente mais tarde.");
-                        alert(err.message)
-                    })
-                    .finally(() => {
-                        setLoading(false);
-                    });
-            }
+        } else {
+            setLoading(false);
         }
     }, [selectedCity, filterApplied, minPrice, maxPrice]);
 
@@ -84,6 +69,7 @@ export default function MenuFlightsPage({ filterApplied }) {
         </MenuFlightsPageContainer>
     );
 }
+
 
 const MenuFlightsPageContainer = styled.main`
     display: flex;

@@ -17,42 +17,35 @@ export default function MenuHostingPage({ hotelFilter }) {
     const { minPrice, maxPrice } = useContext(FilterContext);
 
     useEffect(() => {
-        if (selectedCity && !hotelFilter) {
-            setLoading(true);
-            setError(null);
+        setLoading(true);
+        setError(null);
 
-            apiAuth
-                .getHotels(selectedCity)
+        let request;
+        if (selectedCity && !hotelFilter) {
+            request = apiAuth.getHotels(selectedCity);
+        } else if (hotelFilter) {
+            if (minPrice > maxPrice) {
+                setError("O preço mínimo deve ser menor que o preço máximo");
+                setLoading(false);
+            } else {
+                request = apiAuth.filterHotelsByPrice(selectedCity, minPrice, maxPrice);
+            }
+        }
+
+        if (request) {
+            request
                 .then((res) => {
                     setHotels(res.data);
                 })
                 .catch((err) => {
-                    setError("Ocorreu um erro ao carregar os hotéis. Por favor, tente novamente mais tarde.");
+                    setError("Ocorreu um erro ao carregar/filtrar os hotéis. Por favor, reacarregue a página.");
+                    console.log(err.response);
                 })
                 .finally(() => {
                     setLoading(false);
                 });
-        } else if (hotelFilter) {
-            if (minPrice > maxPrice) {
-                setError("O preço mínimo deve ser menor que o preço máximo");
-                setHotels([]);
-                setLoading(false);
-            } else {
-                setLoading(true);
-                setError(null);
-
-                apiAuth
-                    .filterHotelsByPrice(selectedCity, minPrice, maxPrice)
-                    .then((res) => {
-                        setHotels(res.data);
-                    })
-                    .catch((err) => {
-                        setError("Ocorreu um erro ao filtrar os voos. Por favor, tente novamente mais tarde.");
-                    })
-                    .finally(() => {
-                        setLoading(false);
-                    });
-            }
+        } else {
+            setLoading(false);
         }
     }, [selectedCity, hotelFilter, minPrice, maxPrice]);
 

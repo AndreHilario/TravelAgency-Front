@@ -35,7 +35,8 @@ export default function DescriptionMenu() {
 
   const reserve = () => {
 
-    const data = { ...flightDetails, flight_id: id }
+    const data = { ...flightDetails, flight_id: id };
+    delete data.id;
 
     apiAuth
       .salveFlight(data)
