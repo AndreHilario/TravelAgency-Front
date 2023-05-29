@@ -81,17 +81,8 @@ export default function DescriptionHostingMenu() {
 
     const reserve = () => {
 
-        const data = {
-            hotel_name: hotelDetails.hotel_name,
-            daily_price: hotelDetails.daily_price,
-            description: hotelDetails.description,
-            located_city: hotelDetails.located_city,
-            hotel_images: hotelDetails.hotel_images,
-            amenities_hotel: hotelDetails.amenities_hotel
-        }
-
         apiAuth
-            .salveHotel(data)
+            .salveHotel({ ...hotelDetails })
             .then(() => {
                 alert("Hotel reservado com sucesso");
                 navigate("/options");

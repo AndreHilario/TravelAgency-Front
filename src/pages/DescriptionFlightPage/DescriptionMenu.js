@@ -35,18 +35,7 @@ export default function DescriptionMenu() {
 
   const reserve = () => {
 
-    const data = {
-      number: flightDetails.number+1,
-      flight_date: flightDetails.flight_date,
-      flight_time: flightDetails.flight_time,
-      departure_city: flightDetails.departure_city,
-      destination: flightDetails.destination,
-      airline_name: flightDetails.airline_name,
-      departure_time: flightDetails.departure_city,
-      arrival_time: flightDetails.arrival_time,
-      price: flightDetails.price,
-      flight_id: id
-    }
+    const data = { ...flightDetails, flight_id: id }
 
     apiAuth
       .salveFlight(data)
